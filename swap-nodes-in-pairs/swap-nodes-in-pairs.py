@@ -8,11 +8,19 @@ class Solution:
         if head is None:
             return None
         
-        curr = head
+        dummy = ListNode(next=head)
+        prev, curr = dummy, head
+
         while curr and curr.next:
-            tmp = curr.val
-            curr.val = curr.next.val
-            curr.next.val = tmp
-            curr = curr.next.next
+            # storing the values
+            nxtPair = curr.next.next
+            second = curr.next
+            #swapping
+            second.next = curr
+            curr.next = nxtPair
+            prev.next = second
+            #shifting
+            prev = curr
+            curr = nxtPair
         
-        return head
+        return dummy.next
